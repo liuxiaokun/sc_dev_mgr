@@ -1,0 +1,39 @@
+server:
+  port: 8848
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.20.243.7:3306/sdm
+    username: sunbox
+    password: SUNBOX@TBD7
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 1
+      filters: stat
+      maxActive: 2
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+
+mybatis:
+  type-aliases-package: com.lxk.mgr.model
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 3000
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com.lxk.mgr.mapper: debug
+
+
+
