@@ -35,5 +35,8 @@ logging:
   level:
     com.lxk.mgr.mapper: debug
 
+pagehelper:
+  helper-dialect: mysql
+
 
 

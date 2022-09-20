@@ -1,5 +1,7 @@
 package com.lxk.mgr.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.lxk.mgr.entity.User;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<User> getAll();
+    PageInfo<User> getAll();
 
     User getById(Long id);
 }

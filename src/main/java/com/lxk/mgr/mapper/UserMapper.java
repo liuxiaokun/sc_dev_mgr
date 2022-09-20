@@ -1,8 +1,7 @@
 package com.lxk.mgr.mapper;
 
-//import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.pagehelper.Page;
 import com.lxk.mgr.entity.User;
 import org.springframework.stereotype.Repository;
 

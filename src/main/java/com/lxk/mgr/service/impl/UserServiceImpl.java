@@ -1,8 +1,10 @@
 package com.lxk.mgr.service.impl;
 
-import com.lxk.mgr.controller.base.RO;
-import com.lxk.mgr.mapper.UserMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lxk.mgr.entity.User;
+import com.lxk.mgr.mapper.UserMapper;
 import com.lxk.mgr.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userMapper.selectAll();
+    public PageInfo<User> getAll() {
+        PageHelper.startPage(1, 2);
+        List<User> users = userMapper.selectAll();
+        return new PageInfo<>(users);
     }
 
     @Override
