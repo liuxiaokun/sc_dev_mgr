@@ -33,6 +33,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(Long id) {
-        return userMapper.selectById(id);
+        return null; //userMapper.selectById(id);
     }
 }

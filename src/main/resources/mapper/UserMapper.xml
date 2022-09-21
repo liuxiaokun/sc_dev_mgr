@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxk.mgr.mapper.UserMapper">
     <select id="selectAll" resultType="com.lxk.mgr.entity.User" parameterType="Integer">
-        SELECT id, name, age, email FROM user
+        SELECT * FROM t_user
     </select>
 </mapper>

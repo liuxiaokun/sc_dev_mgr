@@ -1,8 +1,8 @@
 package com.lxk.mgr.entity;
 
+import com.lxk.mgr.entity.base.BaseEntity;
 import lombok.Data;
-
-import java.io.Serializable;
+import lombok.ToString;
 
 /**
  * @author liuxiaokun
@@ -10,10 +10,21 @@ import java.io.Serializable;
  * @since 2022-09-19 22:03
  */
 @Data
-public class User implements Serializable {
+@ToString
+public class User extends BaseEntity {
 
-    private Long id;
+    /**
+     * 名字
+     */
     private String name;
+
+    /**
+     * 年龄
+     */
     private Integer age;
+
+    /**
+     * 邮箱
+     */
     private String email;
 }
