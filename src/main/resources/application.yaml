@@ -2,6 +2,10 @@ server:
   port: 8848
 
 spring:
+  activiti:
+    check-process-definitions: false
+    database-schema-update: true
+    process-definition-location-prefix: classpath:processes
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://172.20.243.7:3306/sdm
