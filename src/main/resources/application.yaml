@@ -2,6 +2,9 @@ server:
   port: 8848
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   activiti:
     check-process-definitions: false
     database-schema-update: true
@@ -41,6 +44,3 @@ logging:
 
 pagehelper:
   helper-dialect: mysql
-
-
-
