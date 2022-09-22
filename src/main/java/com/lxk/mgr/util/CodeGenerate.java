@@ -2,7 +2,7 @@ package com.lxk.mgr.util;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 
 import java.util.Collections;
 
@@ -18,6 +18,7 @@ public class CodeGenerate {
                 .globalConfig(builder -> {
                     builder.author("liuxiaokun") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
+                            .commentDate("yyyy-MM-dd HH:mm:ss")
                             .outputDir("D://gen"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
@@ -26,10 +27,11 @@ public class CodeGenerate {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D://gen")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("t_user") // 设置需要生成的表名
-                            .addTablePrefix("t_", "c_"); // 设置过滤表前缀
+                    builder.entityBuilder().enableLombok();
+                    builder.likeTable(new LikeTable("t_*")); // 设置需要生成的表名
+                            builder.addTablePrefix("t_", "c_"); // 设置过滤表前缀
                 })
-                //.templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                //.templateConfig(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
 }
