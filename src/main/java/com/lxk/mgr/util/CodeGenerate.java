@@ -1,8 +1,12 @@
 package com.lxk.mgr.util;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
+import com.lxk.mgr.entity.base.BaseEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 
@@ -22,14 +26,26 @@ public class CodeGenerate {
                             .outputDir("D://gen"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.lxk") // 设置父包名
-                            .moduleName("mgr") // 设置父包模块名
+                    builder.parent("com.lxk.mgr") // 设置父包名
+                            .moduleName("") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D://gen")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.entityBuilder().enableLombok();
-                    builder.likeTable(new LikeTable("t_*")); // 设置需要生成的表名
-                            builder.addTablePrefix("t_", "c_"); // 设置过滤表前缀
+                    // controller
+                    builder.controllerBuilder().enableRestStyle().enableFileOverride();
+                    // entity
+                    builder.entityBuilder().superClass(BaseEntity.class).enableLombok().disableSerialVersionUID()
+                            .addSuperEntityColumns("id","created_by","created_by_name","created_date","modified_by",
+                                    "modified_by_name", "modified_date", "status").enableFileOverride();
+                    // mapper
+                    builder.mapperBuilder().superClass(BaseMapper.class).mapperAnnotation(Repository.class)
+                            .enableBaseColumnList().enableBaseResultMap().enableFileOverride();
+
+                    // service
+                    builder.serviceBuilder().convertServiceFileName(entityName -> entityName + ConstVal.SERVICE).enableFileOverride();
+
+                    builder.addInclude("t_.*");
+                    builder.addTablePrefix("t_", "c_"); // 设置过滤表前缀
                 })
                 //.templateConfig(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
