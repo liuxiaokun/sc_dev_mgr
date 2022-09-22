@@ -1,11 +1,13 @@
 package com.lxk.mgr.entity.base;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author liuxiaokun
@@ -18,42 +20,50 @@ public class BaseEntity implements Serializable {
     /**
      * 表主键ID
      */
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
      * 创建人ID
      */
+    @ApiModelProperty("创建人ID")
     private Long createdBy;
 
     /**
      * 创建人名字
      */
-    private Long createdByName;
+    @ApiModelProperty("创建人名字")
+    private String createdByName;
 
     /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createdDate;
+    @ApiModelProperty("创建时间")
+    private LocalDateTime createdDate;
 
     /**
      * 最后修改人ID
      */
+    @ApiModelProperty("最后修改人ID")
     private Long modifiedBy;
 
     /**
      * 最后修改人名字
      */
-    private Long modifiedByName;
+    @ApiModelProperty("最后修改人名字")
+    private String modifiedByName;
 
     /**
      * 最后修改日期
      */
+    @ApiModelProperty("最后修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date modifiedDate;
+    private LocalDateTime modifiedDate;
 
     /**
      * 数据状态
      */
-    private Integer status;
+    @ApiModelProperty("数据状态")
+    private Byte status;
 }

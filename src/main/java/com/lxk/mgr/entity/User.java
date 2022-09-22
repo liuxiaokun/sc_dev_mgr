@@ -2,7 +2,6 @@ package com.lxk.mgr.entity;
 
 import com.lxk.mgr.entity.base.BaseEntity;
 import lombok.Data;
-import lombok.ToString;
 
 /**
  * @author liuxiaokun
@@ -10,7 +9,6 @@ import lombok.ToString;
  * @since 2022-09-19 22:03
  */
 @Data
-@ToString
 public class User extends BaseEntity {
 
     /**
