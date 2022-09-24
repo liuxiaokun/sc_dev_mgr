@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.lxk.mgr.entity.base.BaseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
@@ -28,7 +28,10 @@ public class CodeGenerate {
                 .packageConfig(builder -> {
                     builder.parent("com.lxk.mgr") // 设置父包名
                             .moduleName("") // 设置父包模块名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, "D://gen")); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, "D://gen/mapper")); // 设置mapperXml生成路径
+                })
+                .templateConfig(builder -> {
+                    builder.controller("/templates/controller.java");
                 })
                 .strategyConfig(builder -> {
                     // controller
@@ -39,6 +42,7 @@ public class CodeGenerate {
                                     "modified_by_name", "modified_date", "status").enableFileOverride();
                     // mapper
                     builder.mapperBuilder().superClass(BaseMapper.class).mapperAnnotation(Repository.class)
+                            .mapperAnnotation(Slf4j.class)
                             .enableBaseColumnList().enableBaseResultMap().enableFileOverride();
 
                     // service

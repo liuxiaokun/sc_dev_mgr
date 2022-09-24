@@ -1,0 +1,69 @@
+package ${package.Controller};
+
+import ${package.Controller}.base.RO;
+import org.springframework.web.bind.annotation.RequestMapping;
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+import lombok.extern.slf4j.Slf4j;
+#end
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+@Slf4j
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+@Slf4j
+public class ${table.controllerName} {
+#end
+
+    private final ${table.serviceName} ${table.lowerServiceName};
+
+    public ${table.controllerName}(${table.serviceName} ${table.lowerServiceName}) {
+        this.${table.lowerServiceName} = ${table.lowerServiceName};
+    }
+
+    @GetMapping(value = "/{id}", name = "查看")
+    public RO view(@PathVariable("id") Long id) {
+        log.info("view by id:{}", id);
+        ${entity} ${table.lowerEntityName} = ${table.lowerServiceName}.getById(id);
+        return RO.success(${table.lowerEntityName});
+    }
+
+    @PostMapping(name = "创建")
+    public Object create(@RequestBody ${entity}DTO ${table.lowerEntityName}DTO, HttpServletRequest request) {
+        log.info("add DTO:{}", ${entity}DTO);
+        ${entity} source = new ${entity}();
+        try {
+            ${entity} ${table.lowerEntityName} = BeanUtil.copyProperties(${table.lowerEntityName}DTO, source);
+            ${table.lowerServiceName}.save(this.packAddBaseProps(${table.lowerEntityName}, request));
+        } catch (BizException e) {
+            log.error("create failed", e);
+            return RO.error(e.getMessage());
+        }
+        return RO.success();
+        }
+
+}
+#end
