@@ -66,4 +66,7 @@ public class BaseEntity implements Serializable {
      */
     @ApiModelProperty("数据状态")
     private Byte status;
+
+    @ApiModelProperty("IP地址")
+    private Integer ip;
 }
