@@ -44,3 +44,8 @@ logging:
 
 pagehelper:
   helper-dialect: mysql
+
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: t_
