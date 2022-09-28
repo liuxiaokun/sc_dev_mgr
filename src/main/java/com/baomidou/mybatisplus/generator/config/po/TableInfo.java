@@ -112,6 +112,11 @@ public class TableInfo {
     private String fieldNames;
 
     /**
+     * 公共字段名称集
+     */
+    private String commonFieldNames;
+
+    /**
      * 实体
      */
     private final Entity entity;
@@ -197,6 +202,13 @@ public class TableInfo {
             this.fieldNames = this.fields.stream().map(TableField::getColumnName).collect(Collectors.joining(", "));
         }
         return this.fieldNames;
+    }
+
+    public String getCommonFieldNames() {
+        if (StringUtils.isBlank(commonFieldNames)) {
+            this.commonFieldNames = this.commonFields.stream().map(TableField::getColumnName).collect(Collectors.joining(", "));
+        }
+        return this.commonFieldNames;
     }
 
     /**

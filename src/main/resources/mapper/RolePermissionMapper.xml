@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lxk.mgr.mapper.UserMapper">
+<mapper namespace="com.lxk.mgr.mapper.RolePermissionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lxk.mgr.entity.User">
+    <resultMap id="BaseResultMap" type="com.lxk.mgr.entity.RolePermission">
         <result column="id" property="id" />
         <result column="created_by" property="createdBy" />
         <result column="created_by_name" property="createdByName" />
@@ -12,10 +12,8 @@
         <result column="modified_by_name" property="modifiedByName" />
         <result column="modified_date" property="modifiedDate" />
         <result column="status" property="status" />
-        <result column="ip" property="ip" />
-        <result column="name" property="name" />
-        <result column="age" property="age" />
-        <result column="email" property="email" />
+        <result column="role_id" property="roleId" />
+        <result column="permission_id" property="permissionId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -28,8 +26,7 @@
         modified_by_name,
         modified_date,
         status,
-        ip,
-        name, age, email
+        role_id, permission_id
     </sql>
 
 </mapper>

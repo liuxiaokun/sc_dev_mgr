@@ -1,21 +1,26 @@
 package com.lxk.mgr.controller;
 
-import com.lxk.mgr.controller.base.BaseController;
 import com.lxk.mgr.controller.base.RO;
+import com.lxk.mgr.entity.User;
 import com.lxk.mgr.service.UserService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.RestController;
+import com.lxk.mgr.controller.base.BaseController;
 
 /**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
  * @author liuxiaokun
- * @version 1.0.0
- * @since 2022-09-19 22:00
+ * @since 2022-09-28 09:43:47
  */
 @RestController
-@RequestMapping("users")
+@RequestMapping("/user")
 @Slf4j
 public class UserController extends BaseController {
 
@@ -25,8 +30,42 @@ public class UserController extends BaseController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public RO user(@PathVariable Long id) {
-        return RO.success(userService.getById(id));
+    @PostMapping(value = "", name = "新增")
+    public RO add(HttpServletRequest request, User user) {
+        log.info("add:{}", user);
+        userService.save(user);
+        return RO.success();
     }
+
+    @GetMapping(value = "/{id}", name = "查看")
+    public RO view(@PathVariable("id") Long id) {
+        log.info("view by id:{}", id);
+        User user = userService.getById(id);
+        return RO.success(user);
+    }
+
+    @PatchMapping(value = "/{id}", name = "修改")
+    public RO patchUpdate(@PathVariable("id") Long id, HttpServletRequest request, User user) {
+        log.info("Patch modify Id:{}", id);
+        user.setModifiedBy(getUserId(request));
+        user.setModifiedDate(LocalDateTime.now());
+        userService.updateById(user);
+        return RO.success();
+    }
+
+    @DeleteMapping(value = "/{id}", name = "删除")
+    public RO remove(HttpServletRequest request, @PathVariable("id") Long id) {
+        log.info("delete by id:{}", id);
+        userService.removeById(id);
+        return RO.success();
+    }
+
+    @GetMapping(value = "", name = "列表")
+    public RO list(User user, Integer pageNum, Integer pageSize) {
+        log.info("list param:{}, page:{}, size:{}", user, pageNum, pageSize);
+        Page<User> page = new Page<>(pageNum, pageSize);
+        Page<User> pageList = userService.page(page);
+        return RO.success(pageList);
+    }
+
 }

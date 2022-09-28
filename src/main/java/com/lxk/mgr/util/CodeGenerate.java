@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.lxk.mgr.controller.base.BaseController;
 import com.lxk.mgr.entity.base.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -32,17 +33,17 @@ public class CodeGenerate {
                 })
                 .templateConfig(builder -> {
                     builder.controller("/templates/controller.java");
+                    builder.mapper("/templates/mapper.xml.vm");
                 })
                 .strategyConfig(builder -> {
                     // controller
-                    builder.controllerBuilder().enableRestStyle().enableFileOverride();
+                    builder.controllerBuilder().superClass(BaseController.class).enableRestStyle().enableFileOverride();
                     // entity
                     builder.entityBuilder().superClass(BaseEntity.class).enableLombok().disableSerialVersionUID()
                             .addSuperEntityColumns("id","created_by","created_by_name","created_date","modified_by",
                                     "modified_by_name", "modified_date", "status").enableFileOverride();
                     // mapper
                     builder.mapperBuilder().superClass(BaseMapper.class).mapperAnnotation(Repository.class)
-                            .mapperAnnotation(Slf4j.class)
                             .enableBaseColumnList().enableBaseResultMap().enableFileOverride();
 
                     // service
