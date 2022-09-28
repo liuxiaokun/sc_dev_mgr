@@ -4,6 +4,7 @@ import com.lxk.mgr.entity.Role;
 import com.lxk.mgr.mapper.RoleMapper;
 import com.lxk.mgr.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
  * @since 2022-09-28 09:43:47
  */
 @Service
+@Slf4j
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
 }

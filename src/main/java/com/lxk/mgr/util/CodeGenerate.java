@@ -34,6 +34,7 @@ public class CodeGenerate {
                 .templateConfig(builder -> {
                     builder.controller("/templates/controller.java");
                     builder.mapper("/templates/mapper.xml.vm");
+                    builder.serviceImpl("/templates/serviceImpl.java.vm");
                 })
                 .strategyConfig(builder -> {
                     // controller

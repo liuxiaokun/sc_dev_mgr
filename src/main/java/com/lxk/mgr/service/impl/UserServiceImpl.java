@@ -4,6 +4,7 @@ import com.lxk.mgr.entity.User;
 import com.lxk.mgr.mapper.UserMapper;
 import com.lxk.mgr.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
  * @since 2022-09-28 09:43:47
  */
 @Service
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
 }
