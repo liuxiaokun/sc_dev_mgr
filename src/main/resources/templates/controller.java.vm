@@ -1,15 +1,22 @@
 package ${package.Controller};
 
+import ${superControllerClassPackage};
+import ${package.Controller}.controller.base.BaseController;
+import ${package.Controller}.controller.base.RO;
+import ${package.Controller}.entity.User;
+import ${package.Controller}.service.UserService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import ${package.Controller}.base.RO;
-import org.springframework.web.bind.annotation.RequestMapping;
 #if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
 #else
 import org.springframework.stereotype.Controller;
 #end
 #if(${superControllerClassPackage})
-import ${superControllerClassPackage};
-import lombok.extern.slf4j.Slf4j;
 #end
 
 /**
@@ -44,6 +51,13 @@ public class ${table.controllerName} {
         this.${table.lowerServiceName} = ${table.lowerServiceName};
     }
 
+    @PostMapping(value = "", name = "新增")
+    public RO add(HttpServletRequest request, ${entity} ${table.lowerEntityName}) {
+        log.info("add:{}", ${table.lowerEntityName});
+        ${table.lowerServiceName}.save(${table.lowerEntityName});
+        return RO.success();
+    }
+
     @GetMapping(value = "/{id}", name = "查看")
     public RO view(@PathVariable("id") Long id) {
         log.info("view by id:{}", id);
@@ -51,19 +65,29 @@ public class ${table.controllerName} {
         return RO.success(${table.lowerEntityName});
     }
 
-    @PostMapping(name = "创建")
-    public Object create(@RequestBody ${entity}DTO ${table.lowerEntityName}DTO, HttpServletRequest request) {
-        log.info("add DTO:{}", ${entity}DTO);
-        ${entity} source = new ${entity}();
-        try {
-            ${entity} ${table.lowerEntityName} = BeanUtil.copyProperties(${table.lowerEntityName}DTO, source);
-            ${table.lowerServiceName}.save(this.packAddBaseProps(${table.lowerEntityName}, request));
-        } catch (BizException e) {
-            log.error("create failed", e);
-            return RO.error(e.getMessage());
-        }
+    @PatchMapping(value = "/{id}", name = "修改")
+    public RO patchUpdate(@PathVariable("id") Long id, HttpServletRequest request, ${entity} ${table.lowerEntityName}) {
+        log.info("Patch modify Id:{}", id);
+        ${table.lowerEntityName}.setModifiedBy(getUserId(request));
+        ${table.lowerEntityName}.setModifiedDate(LocalDateTime.now());
+        ${table.lowerServiceName}.updateById(${table.lowerEntityName});
         return RO.success();
-        }
+    }
+
+    @DeleteMapping(value = "/{id}", name = "删除")
+    public RO remove(HttpServletRequest request, @PathVariable("id") Long id) {
+        log.info("delete by id:{}", id);
+        ${table.lowerServiceName}.removeById(id);
+        return RO.success();
+    }
+
+    @GetMapping(value = "", name = "列表")
+    public RO list(${entity} ${table.lowerEntityName}, Integer pageNum, Integer pageSize) {
+        log.info("list param:{}, page:{}, size:{}", ${table.lowerEntityName}, pageNum, pageSize);
+        Page<${entity}> page = new Page<>(pageNum, pageSize);
+        Page<${entity}> pageList = ${table.lowerServiceName}.page(page);
+        return RO.success(pageList);
+    }
 
 }
 #end
