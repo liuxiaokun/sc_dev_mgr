@@ -6,7 +6,9 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -23,7 +25,7 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(securityManager);
         //权限设置
         Map<String,String> map = new HashMap<>(3);
-        map.put("/main","authc");
+        map.put("/**","authc");
         map.put("/manage","perms[manage]");
         map.put("/administrator","roles[administrator]");
         factoryBean.setFilterChainDefinitionMap(map);
@@ -31,6 +33,9 @@ public class ShiroConfig {
         factoryBean.setLoginUrl("/login");
         //设置未授权页面
         factoryBean.setUnauthorizedUrl("/unauth");
+        Map<String, Filter> filterMap = new LinkedHashMap<>();
+        filterMap.put("authc", new ShiroFormAuthenticationFilter());
+        factoryBean.setFilters(filterMap);
         return factoryBean;
     }
 

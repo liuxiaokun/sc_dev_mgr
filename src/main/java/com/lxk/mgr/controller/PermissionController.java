@@ -17,12 +17,12 @@ import com.lxk.mgr.controller.base.BaseController;
  * </p>
  *
  * @author liuxiaokun
- * @since 2022-09-28 09:43:47
+ * @since 2022-09-28 16:18:41
  */
 @RestController
 @RequestMapping("/permission")
 @Slf4j
-public class PermissionController extends BaseController {
+public class PermissionController extends BaseController<Permission> {
 
     private final PermissionService permissionService;
 
@@ -31,9 +31,9 @@ public class PermissionController extends BaseController {
     }
 
     @PostMapping(value = "", name = "新增")
-    public RO add(HttpServletRequest request, Permission permission) {
+    public RO add(HttpServletRequest request, @RequestBody Permission permission) {
         log.info("add:{}", permission);
-        permissionService.save(permission);
+        permissionService.save(packAddBaseProps(permission, request));
         return RO.success();
     }
 

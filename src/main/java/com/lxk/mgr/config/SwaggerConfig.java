@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 /**
- * http://localhost:8848/swagger-ui/index.html
+ * <a href="http://localhost:8848/swagger-ui/index.html">http://localhost:8848/swagger-ui/index.html</a>
  * @author liuxiaokun
  */
 @Configuration

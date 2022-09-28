@@ -7,6 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @author liuxiaokun
+ * @version 1.0.0
+ * @since 2022-09-21 22:07
+ */
 @Configuration
 @Slf4j
 public class MybatisPlusConfig {

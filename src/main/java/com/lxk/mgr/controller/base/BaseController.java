@@ -25,6 +25,7 @@ public class BaseController<T extends BaseEntity> {
     protected T packAddBaseProps(T base, HttpServletRequest request) {
         Long currentLoginId = getUserId(request);
         base.setCreatedBy(currentLoginId);
+        base.setCreatedByName("");
         base.setCreatedDate(LocalDateTime.now());
         base.setIp(getIp(request));
         byte status = 1;

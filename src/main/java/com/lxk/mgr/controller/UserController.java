@@ -17,12 +17,12 @@ import com.lxk.mgr.controller.base.BaseController;
  * </p>
  *
  * @author liuxiaokun
- * @since 2022-09-28 09:43:47
+ * @since 2022-09-28 16:18:41
  */
 @RestController
 @RequestMapping("/user")
 @Slf4j
-public class UserController extends BaseController {
+public class UserController extends BaseController<User> {
 
     private final UserService userService;
 
@@ -31,9 +31,9 @@ public class UserController extends BaseController {
     }
 
     @PostMapping(value = "", name = "新增")
-    public RO add(HttpServletRequest request, User user) {
+    public RO add(HttpServletRequest request, @RequestBody User user) {
         log.info("add:{}", user);
-        userService.save(user);
+        userService.save(packAddBaseProps(user, request));
         return RO.success();
     }
 

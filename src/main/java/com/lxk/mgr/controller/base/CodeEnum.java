@@ -20,6 +20,11 @@ public enum CodeEnum {
     LACK_PARAM(40000, "缺少必要参数"),
 
     /**
+     * 需要身份认证验证
+     */
+    UNAUTHORIZED(40001, "需要身份认证验证"),
+
+    /**
      * 未授权,没有访问权限
      */
     FORBIDDEN(40003, "未授权"),

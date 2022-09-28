@@ -17,12 +17,12 @@ import com.lxk.mgr.controller.base.BaseController;
  * </p>
  *
  * @author liuxiaokun
- * @since 2022-09-28 09:43:47
+ * @since 2022-09-28 16:18:40
  */
 @RestController
 @RequestMapping("/org")
 @Slf4j
-public class OrgController extends BaseController {
+public class OrgController extends BaseController<Org> {
 
     private final OrgService orgService;
 
@@ -31,9 +31,9 @@ public class OrgController extends BaseController {
     }
 
     @PostMapping(value = "", name = "新增")
-    public RO add(HttpServletRequest request, Org org) {
+    public RO add(HttpServletRequest request, @RequestBody Org org) {
         log.info("add:{}", org);
-        orgService.save(org);
+        orgService.save(packAddBaseProps(org, request));
         return RO.success();
     }
 

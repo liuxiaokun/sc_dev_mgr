@@ -37,7 +37,7 @@ class ${table.controllerName}#if(${superControllerClass}) : ${superControllerCla
 #else
 #if(${superControllerClass})
 @Slf4j
-public class ${table.controllerName} extends ${superControllerClass} {
+public class ${table.controllerName} extends ${superControllerClass}<${entity}> {
 #else
 @Slf4j
 public class ${table.controllerName} {
@@ -50,9 +50,9 @@ public class ${table.controllerName} {
     }
 
     @PostMapping(value = "", name = "新增")
-    public RO add(HttpServletRequest request, ${entity} ${table.lowerEntityName}) {
+    public RO add(HttpServletRequest request, @RequestBody ${entity} ${table.lowerEntityName}) {
         log.info("add:{}", ${table.lowerEntityName});
-        ${table.lowerServiceName}.save(${table.lowerEntityName});
+        ${table.lowerServiceName}.save(packAddBaseProps(${table.lowerEntityName}, request));
         return RO.success();
     }
 

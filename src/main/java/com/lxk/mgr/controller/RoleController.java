@@ -17,12 +17,12 @@ import com.lxk.mgr.controller.base.BaseController;
  * </p>
  *
  * @author liuxiaokun
- * @since 2022-09-28 09:43:47
+ * @since 2022-09-28 16:18:41
  */
 @RestController
 @RequestMapping("/role")
 @Slf4j
-public class RoleController extends BaseController {
+public class RoleController extends BaseController<Role> {
 
     private final RoleService roleService;
 
@@ -31,9 +31,9 @@ public class RoleController extends BaseController {
     }
 
     @PostMapping(value = "", name = "新增")
-    public RO add(HttpServletRequest request, Role role) {
+    public RO add(HttpServletRequest request, @RequestBody Role role) {
         log.info("add:{}", role);
-        roleService.save(role);
+        roleService.save(packAddBaseProps(role, request));
         return RO.success();
     }
 
