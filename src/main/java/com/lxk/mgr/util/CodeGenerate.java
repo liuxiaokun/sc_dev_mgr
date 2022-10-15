@@ -16,6 +16,7 @@ import java.util.Collections;
  * @version 1.0.0
  * @since 2022-09-20 15:17
  */
+@Slf4j
 public class CodeGenerate {
 
     public static void main(String[] args) {

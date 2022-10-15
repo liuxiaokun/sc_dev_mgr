@@ -2,9 +2,11 @@ package com.lxk.mgr.controller;
 
 import com.lxk.mgr.controller.base.RO;
 import com.lxk.mgr.entity.User;
+import com.lxk.mgr.producer.Producer;
 import com.lxk.mgr.service.UserService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -66,6 +68,14 @@ public class UserController extends BaseController<User> {
         Page<User> page = new Page<>(pageNum, pageSize);
         Page<User> pageList = userService.page(page);
         return RO.success(pageList);
+    }
+
+    @Autowired
+    private Producer producer;
+    @GetMapping(value = "msg")
+    public RO msg() {
+        producer.sendMsg("msg");
+        return RO.success();
     }
 
 }

@@ -25,7 +25,7 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(securityManager);
         //权限设置
         Map<String,String> map = new HashMap<>(3);
-        map.put("/**","authc");
+        //map.put("/**","authc");
         map.put("/manage","perms[manage]");
         map.put("/administrator","roles[administrator]");
         factoryBean.setFilterChainDefinitionMap(map);
